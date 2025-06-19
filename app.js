@@ -1,0 +1,28 @@
+const scriptURL = "https://script.google.com/macros/s/AKfycbxYfshC1l_LusRcOoJQ2ilkiO-7JsDXlZC2qpFxX7JN4eQzblseOjb8ev0YYQZqo9C_/exec"; // Reemplaza con tu URL
+
+    function registrar(tipo) {
+      const empleado = document.getElementById("empleado").value;
+      const mensajeDiv = document.getElementById("mensaje");
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify({ empleado, tipo })
+      })
+      .then(res => res.text())
+      .then(texto => {
+        if (texto === "OK") {
+          mensajeDiv.textContent = `✔️ ${tipo} registrada para ${empleado}`;
+          mensajeDiv.style.color = "green";
+        } else if (texto === "DUPLICADO") {
+          mensajeDiv.textContent = `⚠️ Ya se registró ${tipo} hoy para ${empleado}`;
+          mensajeDiv.style.color = "orange";
+        } else {
+          mensajeDiv.textContent = "❌ Error al registrar";
+          mensajeDiv.style.color = "red";
+        }
+      })
+      .catch(() => {
+        mensajeDiv.textContent = "❌ Error de conexión";
+        mensajeDiv.style.color = "red";
+      });
+    }
