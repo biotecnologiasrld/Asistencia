@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbxYfshC1l_LusRcOoJQ2ilkiO-7JsDXlZC2qpFxX7JN4eQzblseOjb8ev0YYQZqo9C_/exec"; // Reemplaza con tu URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbyWA7hfZtgDNlDhPPHQyP-uvkeG2n3ToAmopct9vQmR3wmMzhsUY8evF_HD7ZfrFBIZ/exec"; // Reemplaza con tu URL
 
     function registrar(tipo) {
       const empleado = document.getElementById("empleado").value;
