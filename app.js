@@ -1,4 +1,4 @@
-const scriptURL = "https://script.google.com/macros/s/AKfycbyWA7hfZtgDNlDhPPHQyP-uvkeG2n3ToAmopct9vQmR3wmMzhsUY8evF_HD7ZfrFBIZ/exec"; // Reemplaza con tu URL
+const scriptURL = "https://script.google.com/macros/s/AKfycbxPcPqdRrTB0wpGhfZsSOhmMUOV0VsCE150uVdXD79Y4Tm3G5qrBuL_EYAswfvXc695/exec"; // Reemplaza con tu URL
 
     function registrar(tipo) {
       const empleado = document.getElementById("empleado").value;
@@ -9,18 +9,18 @@ const scriptURL = "https://script.google.com/macros/s/AKfycbyWA7hfZtgDNlDhPPHQyP
         body: JSON.stringify({ empleado, tipo })
       })
       .then(res => res.text())
-      .then(texto => {
-        if (texto === "OK") {
-          mensajeDiv.textContent = `✔️ ${tipo} registrada para ${empleado}`;
-          mensajeDiv.style.color = "green";
-        } else if (texto === "DUPLICADO") {
-          mensajeDiv.textContent = `⚠️ Ya se registró ${tipo} hoy para ${empleado}`;
-          mensajeDiv.style.color = "orange";
-        } else {
-          mensajeDiv.textContent = "❌ Error al registrar";
-          mensajeDiv.style.color = "red";
-        }
-      })
+.then(texto => {
+  if (texto === "OK") {
+    mensajeDiv.textContent = `✔️ ${tipo} registrada para ${empleado}`;
+    mensajeDiv.style.color = "green";
+  } else if (texto === "DUPLICADO") {
+    mensajeDiv.textContent = `⚠️ Ya se registró ${tipo} hoy para ${empleado}`;
+    mensajeDiv.style.color = "orange";
+  } else {
+    mensajeDiv.textContent = "❌ Error al registrar";
+    mensajeDiv.style.color = "red";
+  }
+})
       .catch(() => {
         mensajeDiv.textContent = "❌ Error de conexión";
         mensajeDiv.style.color = "red";
