@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Asistencia</title>
+  <link rel="icon" href="/Logo_Final.jpg">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 1rem;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .formulario {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 480px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    select, button {
+      width: 100%;
+      padding: 0.9rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .mensaje {
+      margin-top: 1rem;
+      text-align: center;
+      font-weight: bold;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .formulario {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+    <img src="/Logo_Final.jpg" alt="logo" style="width: 15%; display: block; margin: auto;">
+  <h1>Registro de Asistencia</h1>
+
+  <div class="formulario">
+    <label for="empleado">Selecciona tu nombre:</label>
+    <select id="empleado">
+      <option value="Ávila Guillén Esther">Ávila Guillén Esther</option>
+      <option value="Guillén Bautista Mayra">Guillén Bautista Mayra</option>
+      <option value="Pérez Ramírez Juana">Pérez Ramírez Juana</option>
+    </select>
+
+    <button onclick="registrar('Entrada')">Registrar entrada</button>
+    <button onclick="registrar('Salida a comer')">Salida a comer</button>
+    <button onclick="registrar('Regreso de comida')">Regreso de comida</button>
+    <button onclick="registrar('Salida')">Registrar salida</button>
+
+    <div class="mensaje" id="mensaje"></div>
+  </div>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxYfshC1l_LusRcOoJQ2ilkiO-7JsDXlZC2qpFxX7JN4eQzblseOjb8ev0YYQZqo9C_/exec"; // Reemplaza con tu URL
+
+    function registrar(tipo) {
+      const empleado = document.getElementById("empleado").value;
+      const mensajeDiv = document.getElementById("mensaje");
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify({ empleado, tipo })
+      })
+      .then(res => res.text())
+      .then(texto => {
+        if (texto === "OK") {
+          mensajeDiv.textContent = `✔️ ${tipo} registrada para ${empleado}`;
+          mensajeDiv.style.color = "green";
+        } else if (texto === "DUPLICADO") {
+          mensajeDiv.textContent = `⚠️ Ya se registró ${tipo} hoy para ${empleado}`;
+          mensajeDiv.style.color = "orange";
+        } else {
+          mensajeDiv.textContent = "❌ Error al registrar";
+          mensajeDiv.style.color = "red";
+        }
+      })
+      .catch(() => {
+        mensajeDiv.textContent = "❌ Error de conexión";
+        mensajeDiv.style.color = "red";
+      });
+    }
+  </script>
+
+</body>
+</html>
